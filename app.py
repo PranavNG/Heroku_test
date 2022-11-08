@@ -39,9 +39,9 @@ def home():
 @app.route('/predict',methods=['POST'])
 def predict():
 
-    int_features = request.form.values() #Convert string inputs to float.
+    image = request.form.file[0] #Convert string inputs to float.
     #features = np.array(int_features) #Convert to the form [[a, b]] for input to the model
-    prediction = model.predict(features)  # features Must be in the form [[a, b]]
+    prediction = model.predict(image)  # features Must be in the form [[a, b]]
 
     output = round(prediction[0], 2)
 
