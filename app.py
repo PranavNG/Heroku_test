@@ -29,7 +29,7 @@ model = pickle.load(open('models/eyclass.pkl', 'rb'))
 #use the route() decorator to tell Flask what URL should trigger our function.
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('test.html')
 
 #You can use the methods argument of the route() decorator to handle different HTTP methods.
 #GET: A GET message is send, and the server returns data
@@ -39,13 +39,13 @@ def home():
 @app.route('/predict',methods=['POST'])
 def predict():
 
-    int_features = [float(x) for x in request.form.values()] #Convert string inputs to float.
-    features = [np.array(int_features)]  #Convert to the form [[a, b]] for input to the model
+    int_features = request.form.values() #Convert string inputs to float.
+    #features = np.array(int_features) #Convert to the form [[a, b]] for input to the model
     prediction = model.predict(features)  # features Must be in the form [[a, b]]
 
     output = round(prediction[0], 2)
 
-    return render_template('index.html', prediction_text='Percent with heart disease is {}'.format(output))
+    return render_template('test.html', prediction_text='Percent with heart disease is {}'.format(output))
 
 
 #When the Python interpreter reads a source file, it first defines a few special variables. 
